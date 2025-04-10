@@ -12,6 +12,28 @@ const checkWinner = () => {
     }
 }
 
+const diceAnimation = (randomNumber) => {
+    setTimeout(() => {
+        var tempRandomNumber = Math.ceil(Math.random() * 6);
+        document.querySelector('.dice').src = `./assets/dice-${tempRandomNumber}.png`
+        setTimeout(() => {
+            var tempRandomNumber = Math.ceil(Math.random() * 6);
+            document.querySelector('.dice').src = `./assets/dice-${tempRandomNumber}.png`
+            setTimeout(() => {
+                var tempRandomNumber = Math.ceil(Math.random() * 6);
+                document.querySelector('.dice').src = `./assets/dice-${tempRandomNumber}.png`
+                setTimeout(() => {
+                    var tempRandomNumber = Math.ceil(Math.random() * 6);
+                    document.querySelector('.dice').src = `./assets/dice-${tempRandomNumber}.png`
+                    setTimeout(() => {
+                        document.querySelector('.dice').src = `./assets/dice-${randomNumber}.png`
+                    }, 50)
+                }, 50)
+            }, 50)
+        }, 50)
+    }, 50)
+}
+
 const switchPlayer = () => {
     document.querySelector(`.player--${activePlayer}`).classList.toggle("player--active");
     activePlayer = activePlayer ? 0 : 1;
@@ -21,14 +43,16 @@ const switchPlayer = () => {
 const handleRollDice = () => {
     var randomNumber = Math.ceil(Math.random() * 6);
     document.querySelector('.dice').classList.remove("hidden");
-    document.querySelector('.dice').src = `./assets/dice-${randomNumber}.png`
+    diceAnimation(randomNumber);
     if (randomNumber === 1) {
         currentScore = 0;
-        document.querySelector(`#current--${activePlayer}`).innerText = currentScore;
+        document.querySelector(`#current--${activePlayer}`).innerText = 0;
         switchPlayer();
     } else {
-        currentScore += randomNumber;
-        document.querySelector(`#current--${activePlayer}`).innerText = currentScore;
+        setTimeout(() => {
+            currentScore += randomNumber;
+            document.querySelector(`#current--${activePlayer}`).innerText = currentScore;
+        }, 250)
     }
 }
 
